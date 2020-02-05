@@ -7,7 +7,7 @@ client = Minio('192.168.38.230:9000',
                 secure=False)
 
 try:
-    response = client.get_partial_object('data3', 'test (1).jpg', 1000)
+    response = client.get_partial_object('data2_test', 'test (1).jpg', 1000)
     file = open("test_fixed2.jpg", "w")
     file.write(response.read())
     file.close()
