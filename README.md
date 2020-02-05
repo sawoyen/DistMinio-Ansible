@@ -11,6 +11,8 @@ Distributed MinIO с помощью Ansible
  3. При необходимости сгенерировать ssh ключ.
  
  4. Перечень выполняемых команд для развертывания нод:
+     
+     В текущей реализации необходимо разместить папку roles в /etc/ansible
     
     - git clone https://github.com/sawoyen/DistMinio-Ansible.git
     - cd DistMinio-Ansible
