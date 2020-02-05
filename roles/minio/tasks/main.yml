@@ -1,0 +1,58 @@
+---
+
+- name: create group
+  group:
+    name: "{{ minio_group }}"
+    state: present
+
+- name: add user
+  user:
+    name: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    comment: "Minio Server"
+    shell: /usr/sbin/nologin
+
+- name: download minio server
+  get_url:
+    url: "{{ minio_download_url }}"
+    dest: /usr/local/bin/minio
+    mode: 0777
+
+- name: download minio client
+  get_url:
+    url: "{{ minio_client_download_url }}"
+    dest: /usr/local/bin/mc
+    mode: 0777
+    
+- name: Create the Minio data storage directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+    mode: 0777
+  when: minio_server_make_datadirs
+  with_items: "{{ minio_server_datadirs }}"
+  
+- name: create data directory
+  file:
+    path: "{{ minio_data_volume }}"
+    state: directory
+    owner: "{{ minio_user }}"
+    group: "{{ minio_group }}"
+
+- name: create default file
+  template:
+    src: default.j2
+    dest: /etc/default/minio
+
+- name: create systemd service
+  template:
+    src: systemd.service.j2
+    dest: /etc/systemd/system/minio.service
+
+- name: start and enable service
+  service:
+    name: minio
+    state: started
+    enabled: yes

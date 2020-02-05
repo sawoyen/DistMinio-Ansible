@@ -1,0 +1,18 @@
+---
+minio_user: minio
+minio_group: minio
+minio_port: 9000
+minio_data_volume: /data/minio
+minio_install_dir: /usr/local/bin
+minio_download_url: "https://dl.min.io/server/minio/release/linux-amd64/minio"
+minio_client_download_url: "https://dl.min.io/client/mc/release/linux-amd64/mc"
+minio_access_key: "1234567890"
+minio_secret_key: "1234567890"
+minio_server_make_datadirs: true
+minio_server_datadirs:
+  - '/data/minio/first'
+minio_server_cluster_nodes:
+  - 'http://192.168.38.230:9000/data/minio/first'
+  - 'http://192.168.38.231:9000/data/minio/first'
+  - 'http://192.168.38.232:9000/data/minio/first'
+  - 'http://192.168.38.233:9000/data/minio/first'

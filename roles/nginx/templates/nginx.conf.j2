@@ -1,0 +1,27 @@
+user              www-data;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    upstream minio_servers {
+      server 192.168.38.230:9000;
+      server 192.168.38.231:9000;
+      server 192.168.38.232:9000;
+      server 192.168.38.233:9000;
+    }
+ 
+    server {
+        listen 80;
+        server_name minio.net;
+        location / {
+            proxy_pass http://minio_servers;
+        }
+    }
+}
+
