@@ -34,7 +34,7 @@ Distributed MinIO с помощью Ansible
     Загрузка файлов:
     Т.к. MinIO хранит файлы не в "явном виде", необходимо сперва залить сам файл на сервер, а затем привести его в приемлимый вид для MinIO
     - ansible all -m copy -a "src='test (1).jpg' dest=/tmp" -i inventory
-    - ansible all -m shell -a "mc cp --storage-class REDUCED_REDUNDANCY /tmp/'test (1).jpg' local/data3" -i inventory
+    - ansible all -m shell -a "mc cp --storage-class REDUCED_REDUNDANCY /tmp/'test (1).jpg' local/data2_test" -i inventory
 
     Удаление лишнего:
     - ansible all -m shell -a "rm /tmp/'test (1).jpg'" -i inventory
